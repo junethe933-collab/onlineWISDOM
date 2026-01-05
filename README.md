@@ -1,1 +1,981 @@
-# onlineWISDOM
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WISDOM98 — รีวิว</title>
+
+  <!-- ✅ Meta Pixel (แก้เป็น Pixel ID ของคุณแล้ว) -->
+  <script>
+    !function(f,b,e,v,n,t,s){
+      if(f.fbq)return; n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n; n.push=n; n.loaded=!0; n.version='2.0';
+      n.queue=[]; t=b.createElement(e); t.async=!0; t.src=v;
+      s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s);
+    }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+    // ✅ Pixel ID: 1382347559953039
+    fbq('init', '1382347559953039');
+
+    // ❗️ ย้าย PageView ไปยิงหลังผ่าน Age Gate (ดูในสคริปต์ท้ายไฟล์)
+    // fbq('track', 'PageView');
+  </script>
+  <!-- ✅ End Meta Pixel -->
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --green:#16a34a;
+      --green-2:#22c55e;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius: 18px;
+      --max: 980px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
+    .wrap{max-width:var(--max); margin:0 auto; padding:16px}
+    .stars{letter-spacing:1px; color:#f59e0b}
+    .muted{color:var(--muted); font-size:12px}
+
+    /* Header */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 0 8px;
+      gap:12px; flex-wrap:wrap;
+    }
+    .brand{display:flex; gap:10px; align-items:center;}
+    .appicon{
+      width:52px; height:52px; border-radius:14px;
+      background:#fff;
+      border:1px solid var(--line);
+      box-shadow: 0 8px 18px rgba(0,0,0,.08);
+      overflow:hidden;
+      display:grid; place-items:center;
+      flex:0 0 auto;
+    }
+    .appicon img{width:100%; height:100%; object-fit:cover; display:block;}
+    .appmeta h1{font-size:18px; margin:0 0 2px}
+    .appmeta .sub{font-size:12px; color:var(--muted); display:flex; gap:10px; flex-wrap:wrap}
+
+    .verified{
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:12px; color:#0f172a; margin-left:6px;
+    }
+    .tick{
+      width:16px; height:16px; border-radius:999px;
+      background:#3b82f6; color:#fff; display:grid; place-items:center;
+      font-size:12px; line-height:1;
+    }
+
+    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .btn{
+      border:1px solid var(--line);
+      background:var(--card);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:800;
+      cursor:pointer;
+      transition:.15s ease;
+      display:inline-flex; align-items:center; gap:8px;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn.ghost{background:transparent}
+
+    /* Banner */
+    .banner{
+      width:100%;
+      border-radius: 16px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      background:#fff;
+      margin-top:10px;
+      position:relative;
+    }
+    .banner img{width:100%; height:auto; display:block; object-fit:cover;}
+    .banner::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(to bottom, transparent 55%, rgba(0,0,0,.12));
+      pointer-events:none;
+    }
+
+    /* Card */
+    .hero{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:16px;
+      margin-top:12px;
+    }
+
+    /* CTA สมัครสมาชิก (โลโก้ไลน์) + Shine */
+    .ctaCard{
+      width:100%;
+      background: #0f9d58;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:#fff;
+      cursor:pointer;
+      box-shadow: 0 10px 22px rgba(0,0,0,.12);
+      transition:.15s ease;
+      user-select:none;
+      outline:none;
+      position:relative;
+      overflow:hidden;
+    }
+    .ctaCard:hover{transform: translateY(-1px); filter: brightness(1.03);}
+    .ctaCard:active{transform: translateY(0px); filter: brightness(.98);}
+    .ctaCard:focus-visible{
+      box-shadow: 0 0 0 4px rgba(34,197,94,.25), 0 10px 22px rgba(0,0,0,.12);
+    }
+    .ctaCard::before{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-60%;
+      width:60%;
+      height:180%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+      transform: rotate(18deg);
+      animation: shine 2.8s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes shine{
+      0%{left:-80%; opacity:.0}
+      35%{opacity:.9}
+      60%{opacity:.3}
+      100%{left:140%; opacity:0}
+    }
+
+    .ctaIcon{
+      width:36px; height:36px;
+      border-radius: 10px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.14);
+      flex:0 0 auto;
+      overflow:hidden;
+    }
+    .ctaIcon img{
+      width:22px; height:22px;
+      object-fit:contain;
+      display:block;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,.18));
+    }
+    .ctaText{flex:1}
+    .ctaTitle{font-size:16px; font-weight:1000; line-height:1.1;}
+    .ctaSub{margin-top:4px; font-size:12px; opacity:.95;}
+    .ctaArrow{
+      font-weight:1000;
+      opacity:.95;
+      border:1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.12);
+      padding:8px 10px;
+      border-radius:999px;
+      flex:0 0 auto;
+    }
+
+    .installRow{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:14px;}
+    .metaLine{
+      font-size:12px; color:var(--muted);
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:10px;
+      align-items:center;
+    }
+    .linkPill{
+      border:1px solid var(--line);
+      background:#fff;
+      padding:8px 10px;
+      border-radius:999px;
+      font-weight:900;
+      color:#111827;
+      max-width:100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    /* ✅ ปุ่ม “ลงทะเบียนเสร็จสิ้น” */
+    .btnDone{
+      background:#111827;
+      color:#fff;
+      border:1px solid rgba(17,24,39,.2);
+      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+    }
+    .btnDone:hover{filter: brightness(1.05)}
+    .btnDone:active{filter: brightness(.98)}
+
+    /* Promotions carousel */
+    .promoWrap{
+      margin-top:14px;
+      border-top:1px solid var(--line);
+      padding-top:14px;
+    }
+    .promoHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .promoHeader h2{margin:0; font-size:16px;}
+    .promoControls{display:flex; gap:8px; align-items:center;}
+    .iconBtn{
+      width:34px; height:34px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      font-size:18px;
+      line-height:1;
+      display:grid; place-items:center;
+      user-select:none;
+    }
+
+    .promoViewport{
+      overflow:auto;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:#fff;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .promoViewport::-webkit-scrollbar{display:none;}
+
+    .promoTrack{
+      display:flex;
+      gap:10px;
+      padding:12px 12px 16px;
+    }
+
+    /* ✅ โปรโมชั่น 1040×1040 (แสดงผล) */
+    .promoCard{
+      flex: 0 0 1040px;
+      width: 1040px;
+      height: 1040px;
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:#f3f4f6;
+      position:relative;
+      box-shadow: 0 10px 20px rgba(0,0,0,.06);
+      scroll-snap-align: start;
+      cursor:pointer;
+    }
+    @media (max-width: 1100px){
+      .promoCard{
+        flex-basis: 92vw;
+        width: 92vw;
+        height: 92vw;
+      }
+    }
+
+    .promoCard img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .promoCard .fallback{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      color:#374151; font-weight:1000; font-size:12px;
+      padding:10px; text-align:center;
+    }
+    .badge{
+      position:absolute;
+      top:10px; left:10px;
+      font-size:11px;
+      font-weight:1000;
+      color:#0f172a;
+      background: rgba(255,255,255,.92);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:999px;
+      padding:6px 10px;
+      box-shadow: 0 6px 14px rgba(0,0,0,.10);
+    }
+
+    .promoDots{
+      display:flex;
+      gap:6px;
+      justify-content:center;
+      align-items:center;
+      margin-top:10px;
+    }
+    .dot{
+      width:7px; height:7px;
+      border-radius:999px;
+      background:#d1d5db;
+      transition: transform .15s ease, background .15s ease;
+      cursor:pointer;
+    }
+    .dot.active{
+      background:#16a34a;
+      transform: scale(1.25);
+    }
+
+    /* Reviews */
+    .section{
+      margin-top:12px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:16px;
+    }
+    .section h2{margin:0 0 10px; font-size:16px}
+
+    .ratingGrid{
+      display:grid;
+      grid-template-columns: 180px 1fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 640px){
+      .ratingGrid{grid-template-columns:1fr}
+    }
+    .scoreBig{display:flex; flex-direction:column; gap:6px; align-items:flex-start;}
+    .scoreBig .num{font-size:44px; font-weight:1000; line-height:1;}
+
+    .bars{display:flex; flex-direction:column; gap:8px; margin-top:6px;}
+    .barRow{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted);}
+    .bar{
+      height:10px; border-radius:999px; background:#eef2f7;
+      flex:1;
+      overflow:hidden;
+      border:1px solid var(--line);
+    }
+    .bar > i{
+      display:block; height:100%;
+      background: linear-gradient(90deg,var(--green-2),var(--green));
+      border-radius:999px;
+    }
+
+    .review{
+      padding:12px 0;
+      border-top:1px solid var(--line);
+      display:flex; gap:10px;
+    }
+    .review:first-of-type{border-top:none; padding-top:0}
+    .avatar{
+      width:40px; height:40px; border-radius:999px;
+      background: #e5e7eb;
+      display:grid; place-items:center;
+      font-weight:900;
+      color:#374151;
+      flex:0 0 auto;
+    }
+    .rBody{flex:1}
+    .rHead{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; flex-wrap:wrap;
+    }
+    .name{font-weight:900; font-size:13px}
+    .time{font-size:12px; color:var(--muted)}
+    .rText{margin:6px 0 0; font-size:13px; color:#111827; line-height:1.5}
+
+    .rActions{
+      margin-top:10px;
+      display:flex; gap:10px;
+      color:var(--muted);
+      font-size:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .smallBtn{
+      border:1px solid var(--line);
+      background:#fff;
+      padding:6px 10px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:900;
+      user-select:none;
+      transition:.15s ease;
+    }
+    .smallBtn:hover{transform: translateY(-1px)}
+    .smallBtn.selected{
+      border-color:#bbf7d0;
+      background:#e8f7ee;
+      color:#166534;
+    }
+    .smallBtn.selected.no{
+      border-color:#fecaca;
+      background:#fff1f2;
+      color:#9f1239;
+    }
+
+    .reviewBlock{margin-top:18px}
+    .reviewHeaderRow{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom:10px;
+    }
+    .reviewTitle{margin:0; font-size:14px; font-weight:1000}
+    .arrowNext{
+      width:34px; height:34px; border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      font-size:22px;
+      line-height:1;
+      display:grid; place-items:center;
+      user-select:none;
+    }
+
+    .seeAll{
+      margin-top:8px;
+      border:none;
+      background:transparent;
+      color:#166534;
+      font-weight:1000;
+      cursor:pointer;
+      padding:10px 0;
+      user-select:none;
+      text-align:left;
+    }
+
+    .footerNote{padding:18px 0; text-align:center; color:var(--muted); font-size:12px}
+
+    /* 🔞 Age Gate 20+ */
+    .age-gate{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.85);
+      backdrop-filter: blur(6px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:99999;
+    }
+    .age-card{
+      background:#ffffff;
+      border-radius:18px;
+      padding:28px 24px;
+      width:92%;
+      max-width:380px;
+      text-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.25);
+    }
+    .age-card h2{
+      margin:0 0 10px;
+      font-size:22px;
+    }
+    .age-card p{
+      margin:0 0 18px;
+      color:#374151;
+      font-size:14px;
+      line-height:1.6;
+    }
+    .age-actions{
+      display:flex;
+      gap:12px;
+      margin-top:6px;
+    }
+    .age-btn{
+      flex:1;
+      padding:12px;
+      border-radius:999px;
+      border:none;
+      font-weight:900;
+      cursor:pointer;
+      font-size:14px;
+      user-select:none;
+    }
+    .age-btn.yes{background:#16a34a; color:#fff;}
+    .age-btn.no{background:#dc2626; color:#fff;}
+    .age-btn:active{transform: translateY(1px)}
+  </style>
+</head>
+
+<body>
+  <!-- 🔞 Age Gate 20+ (ถามก่อนเข้าหน้าเว็บ) -->
+  <div id="ageGate" class="age-gate" aria-modal="true" role="dialog">
+    <div class="age-card">
+      <h2>🔞 ยืนยันอายุ</h2>
+      <p>คุณอายุ <b>มากกว่า 20 ปี</b> ใช่หรือไม่?</p>
+
+      <div class="age-actions">
+        <button class="age-btn yes" id="ageYes">ใช่</button>
+        <button class="age-btn no" id="ageNo">ไม่ใช่</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="appicon">
+          <img src="https://i.postimg.cc/503bdbnY/LOGO-1.jpg" alt="WISDOM98 Logo" />
+        </div>
+        <div class="appmeta">
+          <h1>
+            WISDOM98
+            <span class="verified"><span class="tick">✓</span> Verified</span>
+          </h1>
+          <div class="sub">
+            <span>LINE Official • ติดต่อสมัครสมาชิก</span>
+            <span>รองรับ Android / iOS</span>
+            <span class="muted">อัปเดตล่าสุด: <span id="updatedAt">—</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn ghost" id="btnShare">แชร์</button>
+        <button class="btn" id="btnCopy">คัดลอกลิงก์</button>
+      </div>
+    </div>
+
+    <div class="banner">
+      <img src="https://i.postimg.cc/zDFV81V7/ba-khar-a-xxnlin.png" alt="Banner" />
+    </div>
+
+    <div class="hero">
+      <div class="ctaCard" role="button" tabindex="0" id="btnQuickSignup" aria-label="สมัครสมาชิก">
+        <div class="ctaIcon" aria-hidden="true">
+          <img src="https://i.postimg.cc/QxgtSJJ3/image.png" alt="LINE" />
+        </div>
+        <div class="ctaText">
+          <div class="ctaTitle">สมัครสมาชิก</div>
+          <div class="ctaSub">สมัครง่าย เสร็จภายใน 10 วินาที • กดเพื่อแอดไลน์</div>
+        </div>
+        <div class="ctaArrow">➜</div>
+      </div>
+
+      <div class="installRow">
+        <button class="btn" id="btnOpenLine">เปิด LINE</button>
+
+        <!-- ✅ ปุ่มใหม่: ลงทะเบียนเสร็จสิ้น -->
+        <button class="btn btnDone" id="btnRegisterDone">✅ การลงทะเบียนเสร็จสิ้น</button>
+      </div>
+
+      <div class="metaLine">
+        <span class="muted">ลิงก์:</span>
+        <span class="linkPill" id="siteUrl">https://lin.ee/6pdcbcK</span>
+      </div>
+
+      <div class="promoWrap">
+        <div class="promoHeader">
+          <h2>โปรโมชั่น</h2>
+          <div class="promoControls">
+            <button class="iconBtn" id="promoPrev" aria-label="ก่อนหน้า">‹</button>
+            <button class="iconBtn" id="promoNext" aria-label="ถัดไป">›</button>
+          </div>
+        </div>
+
+        <div class="promoViewport" id="promoViewport">
+          <div class="promoTrack" id="promoTrack"></div>
+        </div>
+
+        <div class="promoDots" id="promoDots" aria-label="promo dots"></div>
+
+        <div class="muted" style="margin-top:8px;">
+          * ระบบจะเลื่อนไปข้างหน้าอัตโนมัติทุก ๆ 3 วินาที (แตะ/ชี้ค้างเพื่อหยุด)
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="reviewsOnly">
+      <h2>การให้คะแนนและรีวิว</h2>
+
+      <div class="ratingGrid">
+        <div class="scoreBig">
+          <div class="num">4.7</div>
+          <div class="stars" aria-label="Stars">★★★★★</div>
+          <div class="muted">รีวิว 1 ล้านครั้ง</div>
+        </div>
+
+        <div class="bars">
+          <div class="barRow"><b>5</b> <div class="bar"><i style="width:92%"></i></div></div>
+          <div class="barRow"><b>4</b> <div class="bar"><i style="width:6%"></i></div></div>
+          <div class="barRow"><b>3</b> <div class="bar"><i style="width:2%"></i></div></div>
+          <div class="barRow"><b>2</b> <div class="bar"><i style="width:0.6%"></i></div></div>
+          <div class="barRow"><b>1</b> <div class="bar"><i style="width:0.4%"></i></div></div>
+        </div>
+      </div>
+
+      <div style="height:14px"></div>
+
+      <div class="review">
+        <div class="avatar">❤</div>
+        <div class="rBody">
+          <div class="rHead">
+            <div class="name">ผู้บูชาหัวใจ <span class="muted">• ผู้ใช้จริง</span></div>
+            <div class="time">มอร์_เวอร์ท • 5 มิ.ย. 2024</div>
+          </div>
+          <div class="stars" aria-label="Stars">★★★★★</div>
+          <p class="rText">เจ๋งมาก แต่คุณสามารถถอนเงินได้ไหม?</p>
+          <div class="rActions">
+            <span class="muted">มีผู้คน 26 คนพบว่ารีวิวนี้มีประโยชน์</span>
+            <span class="muted">คุณคิดว่าข้อมูลนี้มีประโยชน์หรือไม่?</span>
+            <button class="smallBtn vote" data-vote="yes">ใช่</button>
+            <button class="smallBtn vote" data-vote="no">ไม่ใช่</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="avatar">H</div>
+        <div class="rBody">
+          <div class="rHead">
+            <div class="name">เฮรี อิสวาห์ยูดี <span class="muted">• ผู้ใช้จริง</span></div>
+            <div class="time">มอร์_เวอร์ท • 25 พ.ค. 2023</div>
+          </div>
+          <div class="stars" aria-label="Stars">★★★★☆</div>
+          <p class="rText">ถ้าสามารถแลกเป็นเงินสดได้จะให้ 4 ดาว แต่ถ้าไม่ได้จะลบทิ้ง</p>
+          <div class="rActions">
+            <span class="muted">มี 4 คนที่เห็นว่ารีวิวนี้มีประโยชน์</span>
+            <span class="muted">คุณคิดว่าข้อมูลนี้มีประโยชน์หรือไม่?</span>
+            <button class="smallBtn vote" data-vote="yes">ใช่</button>
+            <button class="smallBtn vote" data-vote="no">ไม่ใช่</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="avatar">A</div>
+        <div class="rBody">
+          <div class="rHead">
+            <div class="name">อาฟิฟาห์ ฟิตรี <span class="muted">• ผู้ใช้จริง</span></div>
+            <div class="time">มอร์_เวอร์ท • 10 มี.ค. 2024</div>
+          </div>
+          <div class="stars" aria-label="Stars">★★★★★</div>
+          <p class="rText">โอเค ดีมาก ฉันให้ 5 ดาวเต็ม</p>
+          <div class="rActions">
+            <span class="muted">มีผู้คน 14 คนพบว่ารีวิวนี้มีประโยชน์</span>
+            <span class="muted">คุณคิดว่าข้อมูลนี้มีประโยชน์หรือไม่?</span>
+            <button class="smallBtn vote" data-vote="yes">ใช่</button>
+            <button class="smallBtn vote" data-vote="no">ไม่ใช่</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviewBlock">
+        <div class="reviewHeaderRow">
+          <h3 class="reviewTitle">การให้คะแนนและรีวิว</h3>
+          <button class="arrowNext" id="btnReviewsNext" aria-label="ลูกศรไปข้างหน้า">›</button>
+        </div>
+
+        <button class="seeAll" id="btnSeeAllReviews">ดูรีวิวทั้งหมด</button>
+      </div>
+    </div>
+
+    <div class="footerNote">© <span id="year"></span> — WISDOM98</div>
+  </div>
+
+  <script>
+    const CONFIG = {
+      link: "https://lin.ee/6pdcbcK",
+      promoSlideEveryMs: 3000
+    };
+
+    const PROMO_IMAGES = [
+      "https://i.postimg.cc/pT04JTs5/kh-n-yxd-se-y-3.png",
+      "https://i.postimg.cc/Qt6wJtf9/fak-300-r-b-20.png",
+      "https://i.postimg.cc/TwkFJwtr/fak-300-hm-nkngl-x.png",
+      "https://i.postimg.cc/Qt6wJtfg/fak-500-r-bfr-sp-n.png",
+      "https://i.postimg.cc/B6hkB6m1/khe-afr-sp-n-X-20-the-a.png",
+      "https://i.postimg.cc/DZCHPZxX/po-moch-nw-nke-d-500.png"
+    ];
+
+    const $ = (q) => document.querySelector(q);
+
+    function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function randomValueTHB(){
+      const values = [189, 199, 249, 289, 319, 359, 399, 449, 499];
+      return pick(values);
+    }
+
+    function randomContentName(){
+      const names = [
+        "WISDOM98 สมัครสมาชิก",
+        "WISDOM98 โปรโมชั่น",
+        "WISDOM98 รับโปร",
+        "WISDOM98 Line สมัคร",
+        "WISDOM98 โบนัส"
+      ];
+      return pick(names);
+    }
+
+    function buildTrackingPayload(){
+      return {
+        value: randomValueTHB(),
+        currency: "THB",
+        content_name: randomContentName()
+      };
+    }
+
+    // ✅ Event: คลิกสมัครสมาชิก (เดิม)
+    function fireSignupTracking(){
+      const payload = buildTrackingPayload();
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "signup_click",
+        ...payload
+      });
+
+      if (typeof window.fbq === "function") {
+        window.fbq("trackCustom", "สมัครสมาชิก", payload);
+      }
+
+      console.log("signup_click payload:", payload);
+      return payload;
+    }
+
+    // ✅ Event: ลงทะเบียนเสร็จสิ้น (คอนเวอร์ชั่น)
+    function fireCompleteRegistration(){
+      const payload = buildTrackingPayload();
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "complete_registration",
+        ...payload
+      });
+
+      // ✅ Meta Pixel Event มาตรฐาน: CompleteRegistration
+      if (typeof window.fbq === "function") {
+        window.fbq("track", "CompleteRegistration", payload);
+      }
+
+      console.log("complete_registration payload:", payload);
+      return payload;
+    }
+
+    // ✅ ยิง PageView หลังผ่าน Age Gate (ยิงครั้งเดียว/ต่อแท็บ)
+    function firePageViewOnce(){
+      if (sessionStorage.getItem("pv_fired") === "1") return;
+      sessionStorage.setItem("pv_fired", "1");
+      if (typeof window.fbq === "function") {
+        window.fbq("track", "PageView");
+      }
+    }
+
+    // date
+    const now = new Date();
+    $("#year").textContent = now.getFullYear();
+    $("#updatedAt").textContent = now.toLocaleDateString("th-TH", { year:"numeric", month:"short", day:"numeric" });
+    $("#siteUrl").textContent = CONFIG.link;
+
+    function goWithTracking(){
+      fireSignupTracking();
+      window.open(CONFIG.link, "_blank", "noopener");
+    }
+
+    $("#btnQuickSignup").addEventListener("click", goWithTracking);
+    $("#btnQuickSignup").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") goWithTracking();
+    });
+
+    $("#btnOpenLine").addEventListener("click", goWithTracking);
+
+    // ✅ ปุ่ม “การลงทะเบียนเสร็จสิ้น” -> ยิง CompleteRegistration
+    $("#btnRegisterDone").addEventListener("click", () => {
+      fireCompleteRegistration();
+      alert("บันทึกการลงทะเบียนเสร็จสิ้น ✅");
+    });
+
+    $("#btnCopy").addEventListener("click", async () => {
+      try{ await navigator.clipboard.writeText(CONFIG.link); alert("คัดลอกลิงก์แล้ว ✅"); }
+      catch(e){ prompt("คัดลอกลิงก์นี้:", CONFIG.link); }
+    });
+
+    $("#btnShare").addEventListener("click", async () => {
+      const data = { title: document.title, text: "ลิงก์เข้าใช้งาน", url: CONFIG.link };
+      if (navigator.share){
+        try{ await navigator.share(data); }catch(e){}
+      } else {
+        prompt("แชร์ลิงก์นี้:", CONFIG.link);
+      }
+    });
+
+    $("#btnSeeAllReviews").addEventListener("click", () => alert("ดูรีวิวทั้งหมด (เดโม่) ✅"));
+    $("#btnReviewsNext")?.addEventListener("click", () => alert("ถัดไป (เดโม่) ➜"));
+
+    document.querySelectorAll(".review").forEach((reviewEl) => {
+      const yesBtn = reviewEl.querySelector('.vote[data-vote="yes"]');
+      const noBtn  = reviewEl.querySelector('.vote[data-vote="no"]');
+      if (!yesBtn || !noBtn) return;
+
+      yesBtn.addEventListener("click", () => {
+        yesBtn.classList.toggle("selected");
+        yesBtn.classList.remove("no");
+        if (yesBtn.classList.contains("selected")){
+          noBtn.classList.remove("selected","no");
+        }
+      });
+
+      noBtn.addEventListener("click", () => {
+        noBtn.classList.toggle("selected");
+        noBtn.classList.toggle("no", noBtn.classList.contains("selected"));
+        if (noBtn.classList.contains("selected")){
+          yesBtn.classList.remove("selected","no");
+        }
+      });
+    });
+
+    const viewport = $("#promoViewport");
+    const track = $("#promoTrack");
+    const dotsWrap = $("#promoDots");
+
+    function makePromoCard(src, idx){
+      const card = document.createElement("div");
+      card.className = "promoCard";
+      card.setAttribute("data-index", String(idx));
+
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = "โปรโมชั่น " + (idx + 1);
+      img.loading = "lazy";
+
+      img.onerror = () => {
+        img.remove();
+        const fb = document.createElement("div");
+        fb.className = "fallback";
+        fb.textContent = "รูปโปรโมชั่น #" + (idx + 1) + " (ลิงก์รูปไม่ถูกต้อง)";
+        card.appendChild(fb);
+      };
+
+      const badge = document.createElement("div");
+      badge.className = "badge";
+      badge.textContent = (idx === 0 ? "HOT" : (idx === 1 ? "NEW" : "PROMO"));
+
+      card.appendChild(img);
+      card.appendChild(badge);
+
+      card.addEventListener("click", goWithTracking);
+
+      return card;
+    }
+
+    PROMO_IMAGES.forEach((src, i) => track.appendChild(makePromoCard(src, i)));
+
+    function renderDots(){
+      dotsWrap.innerHTML = "";
+      PROMO_IMAGES.forEach((_, i) => {
+        const d = document.createElement("div");
+        d.className = "dot" + (i === 0 ? " active" : "");
+        d.addEventListener("click", () => scrollToIndex(i, true));
+        dotsWrap.appendChild(d);
+      });
+    }
+    renderDots();
+
+    function setActiveDot(i){
+      const dots = dotsWrap.querySelectorAll(".dot");
+      dots.forEach((d, idx) => d.classList.toggle("active", idx === i));
+    }
+
+    function getCardWidthWithGap(){
+      const card = track.querySelector(".promoCard");
+      if (!card) return 0;
+      const style = getComputedStyle(track);
+      const gap = parseFloat(style.columnGap || style.gap || "10") || 10;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function clampIndex(i){ return Math.max(0, Math.min(i, PROMO_IMAGES.length - 1)); }
+    function getNearestIndex(){
+      const step = getCardWidthWithGap();
+      if (step <= 0) return 0;
+      return clampIndex(Math.round(viewport.scrollLeft / step));
+    }
+
+    function scrollToIndex(i, smooth){
+      const step = getCardWidthWithGap();
+      const x = clampIndex(i) * step;
+      viewport.scrollTo({ left: x, behavior: smooth ? "smooth" : "auto" });
+      setActiveDot(clampIndex(i));
+    }
+
+    $("#promoNext").addEventListener("click", () => {
+      const i = getNearestIndex();
+      const next = (i + 1) % PROMO_IMAGES.length;
+      scrollToIndex(next, true);
+      restartAuto();
+    });
+    $("#promoPrev").addEventListener("click", () => {
+      const i = getNearestIndex();
+      const prev = (i - 1 + PROMO_IMAGES.length) % PROMO_IMAGES.length;
+      scrollToIndex(prev, true);
+      restartAuto();
+    });
+
+    let scrollT = null;
+    viewport.addEventListener("scroll", () => {
+      if (scrollT) clearTimeout(scrollT);
+      scrollT = setTimeout(() => setActiveDot(getNearestIndex()), 120);
+    });
+
+    let timer = null;
+    function startAuto(){
+      timer = setInterval(() => {
+        const i = getNearestIndex();
+        const next = (i + 1) % PROMO_IMAGES.length;
+        scrollToIndex(next, true);
+      }, CONFIG.promoSlideEveryMs);
+    }
+    function stopAuto(){ if (timer) clearInterval(timer); timer = null; }
+    function restartAuto(){ stopAuto(); startAuto(); }
+
+    viewport.addEventListener("mouseenter", stopAuto);
+    viewport.addEventListener("mouseleave", startAuto);
+    viewport.addEventListener("touchstart", stopAuto, { passive:true });
+    viewport.addEventListener("touchend", startAuto, { passive:true });
+    viewport.addEventListener("touchcancel", startAuto, { passive:true });
+
+    requestAnimationFrame(() => {
+      scrollToIndex(0, false);
+      startAuto();
+    });
+
+    window.addEventListener("resize", () => setActiveDot(getNearestIndex()));
+
+    /* =========================
+       🔞 Age Gate Logic (ถามซ้ำทุกครั้ง)
+       ========================= */
+    const ageGate = document.getElementById("ageGate");
+    const ageYes  = document.getElementById("ageYes");
+    const ageNo   = document.getElementById("ageNo");
+
+    function unlockSite(){
+      ageGate.style.display = "none";
+      firePageViewOnce(); // ✅ ยิง PageView หลังผ่าน gate (ครั้งเดียว/ต่อแท็บ)
+      if (typeof window.fbq === "function") {
+        window.fbq("trackCustom", "AgeVerified20Plus");
+      }
+    }
+
+    // ✅ สำคัญ: ไม่ใช้ localStorage และไม่ปลดล็อกอัตโนมัติ
+    // => จะถามทุกครั้งที่เข้าเว็บ/รีเฟรช
+
+    ageYes.addEventListener("click", () => {
+      unlockSite();
+    });
+
+    ageNo.addEventListener("click", () => {
+      alert("ขออภัย เนื้อหานี้สำหรับผู้มีอายุ 20 ปีขึ้นไปเท่านั้น");
+      // เปลี่ยนลิงก์ปลายทางได้ตามต้องการ
+      window.location.href = "https://www.google.com";
+    });
+  </script>
+</body>
+</html>
