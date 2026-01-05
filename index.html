@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>WISDOM98 — รีวิว</title>
 
-  <!-- ✅ Meta Pixel (แก้เป็น Pixel ID ของคุณแล้ว) -->
+  <!-- ✅ Meta Pixel -->
   <script>
     !function(f,b,e,v,n,t,s){
       if(f.fbq)return; n=f.fbq=function(){n.callMethod?
@@ -15,12 +15,16 @@
       s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s);
     }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-    // ✅ Pixel ID: 1382347559953039
-    fbq('init', '1382347559953039');
+    // ✅ Pixel ID: 1190528275924576
+    fbq('init', '1190528275924576');
 
-    // ❗️ ย้าย PageView ไปยิงหลังผ่าน Age Gate (ดูในสคริปต์ท้ายไฟล์)
+    // ❗️ PageView จะไปยิงหลังผ่าน Age Gate (ดูท้ายไฟล์)
     // fbq('track', 'PageView');
   </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1190528275924576&ev=PageView&noscript=1"/>
+  </noscript>
   <!-- ✅ End Meta Pixel -->
 
   <style>
@@ -723,7 +727,7 @@
       };
     }
 
-    // ✅ Event: คลิกสมัครสมาชิก (เดิม)
+    // ✅ Event: คลิกสมัครสมาชิก
     function fireSignupTracking(){
       const payload = buildTrackingPayload();
 
@@ -741,7 +745,7 @@
       return payload;
     }
 
-    // ✅ Event: ลงทะเบียนเสร็จสิ้น (คอนเวอร์ชั่น)
+    // ✅ Event: ลงทะเบียนเสร็จสิ้น
     function fireCompleteRegistration(){
       const payload = buildTrackingPayload();
 
@@ -751,7 +755,6 @@
         ...payload
       });
 
-      // ✅ Meta Pixel Event มาตรฐาน: CompleteRegistration
       if (typeof window.fbq === "function") {
         window.fbq("track", "CompleteRegistration", payload);
       }
@@ -760,7 +763,7 @@
       return payload;
     }
 
-    // ✅ ยิง PageView หลังผ่าน Age Gate (ยิงครั้งเดียว/ต่อแท็บ)
+    // ✅ ยิง PageView หลังผ่าน Age Gate (ครั้งเดียว/ต่อแท็บ)
     function firePageViewOnce(){
       if (sessionStorage.getItem("pv_fired") === "1") return;
       sessionStorage.setItem("pv_fired", "1");
@@ -787,7 +790,6 @@
 
     $("#btnOpenLine").addEventListener("click", goWithTracking);
 
-    // ✅ ปุ่ม “การลงทะเบียนเสร็จสิ้น” -> ยิง CompleteRegistration
     $("#btnRegisterDone").addEventListener("click", () => {
       fireCompleteRegistration();
       alert("บันทึกการลงทะเบียนเสร็จสิ้น ✅");
@@ -862,7 +864,6 @@
       card.appendChild(badge);
 
       card.addEventListener("click", goWithTracking);
-
       return card;
     }
 
@@ -908,14 +909,12 @@
 
     $("#promoNext").addEventListener("click", () => {
       const i = getNearestIndex();
-      const next = (i + 1) % PROMO_IMAGES.length;
-      scrollToIndex(next, true);
+      scrollToIndex((i + 1) % PROMO_IMAGES.length, true);
       restartAuto();
     });
     $("#promoPrev").addEventListener("click", () => {
       const i = getNearestIndex();
-      const prev = (i - 1 + PROMO_IMAGES.length) % PROMO_IMAGES.length;
-      scrollToIndex(prev, true);
+      scrollToIndex((i - 1 + PROMO_IMAGES.length) % PROMO_IMAGES.length, true);
       restartAuto();
     });
 
@@ -929,8 +928,7 @@
     function startAuto(){
       timer = setInterval(() => {
         const i = getNearestIndex();
-        const next = (i + 1) % PROMO_IMAGES.length;
-        scrollToIndex(next, true);
+        scrollToIndex((i + 1) % PROMO_IMAGES.length, true);
       }, CONFIG.promoSlideEveryMs);
     }
     function stopAuto(){ if (timer) clearInterval(timer); timer = null; }
@@ -958,22 +956,17 @@
 
     function unlockSite(){
       ageGate.style.display = "none";
-      firePageViewOnce(); // ✅ ยิง PageView หลังผ่าน gate (ครั้งเดียว/ต่อแท็บ)
+      firePageViewOnce(); // ✅ ยิง PageView หลังผ่าน gate
       if (typeof window.fbq === "function") {
         window.fbq("trackCustom", "AgeVerified20Plus");
       }
     }
 
-    // ✅ สำคัญ: ไม่ใช้ localStorage และไม่ปลดล็อกอัตโนมัติ
-    // => จะถามทุกครั้งที่เข้าเว็บ/รีเฟรช
-
-    ageYes.addEventListener("click", () => {
-      unlockSite();
-    });
+    // ✅ ไม่ปลดล็อกอัตโนมัติ -> จะถามทุกครั้งที่เข้า/รีเฟรช
+    ageYes.addEventListener("click", () => unlockSite());
 
     ageNo.addEventListener("click", () => {
       alert("ขออภัย เนื้อหานี้สำหรับผู้มีอายุ 20 ปีขึ้นไปเท่านั้น");
-      // เปลี่ยนลิงก์ปลายทางได้ตามต้องการ
       window.location.href = "https://www.google.com";
     });
   </script>
