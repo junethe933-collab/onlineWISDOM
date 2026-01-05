@@ -727,25 +727,29 @@
       };
     }
 
-    // ✅ Event: คลิกสมัครสมาชิก
+    /* =========================
+       ✅ Event: การซื้อ (Purchase)
+       เดิมเคยเป็น: trackCustom "สมัครสมาชิก"
+       ========================= */
     function fireSignupTracking(){
       const payload = buildTrackingPayload();
 
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
-        event: "signup_click",
+        event: "purchase",
         ...payload
       });
 
+      // ✅ Meta Pixel Event มาตรฐาน: Purchase
       if (typeof window.fbq === "function") {
-        window.fbq("trackCustom", "สมัครสมาชิก", payload);
+        window.fbq("track", "Purchase", payload);
       }
 
-      console.log("signup_click payload:", payload);
+      console.log("purchase payload:", payload);
       return payload;
     }
 
-    // ✅ Event: ลงทะเบียนเสร็จสิ้น
+    // ✅ Event: ลงทะเบียนเสร็จสิ้น (คอนเวอร์ชั่น)
     function fireCompleteRegistration(){
       const payload = buildTrackingPayload();
 
@@ -755,6 +759,7 @@
         ...payload
       });
 
+      // ✅ Meta Pixel Event มาตรฐาน: CompleteRegistration
       if (typeof window.fbq === "function") {
         window.fbq("track", "CompleteRegistration", payload);
       }
@@ -763,7 +768,7 @@
       return payload;
     }
 
-    // ✅ ยิง PageView หลังผ่าน Age Gate (ครั้งเดียว/ต่อแท็บ)
+    // ✅ ยิง PageView หลังผ่าน Age Gate (ยิงครั้งเดียว/ต่อแท็บ)
     function firePageViewOnce(){
       if (sessionStorage.getItem("pv_fired") === "1") return;
       sessionStorage.setItem("pv_fired", "1");
@@ -779,7 +784,7 @@
     $("#siteUrl").textContent = CONFIG.link;
 
     function goWithTracking(){
-      fireSignupTracking();
+      fireSignupTracking();                 // ✅ ตอนนี้คือ Purchase
       window.open(CONFIG.link, "_blank", "noopener");
     }
 
@@ -790,6 +795,7 @@
 
     $("#btnOpenLine").addEventListener("click", goWithTracking);
 
+    // ✅ ปุ่ม “การลงทะเบียนเสร็จสิ้น” -> ยิง CompleteRegistration
     $("#btnRegisterDone").addEventListener("click", () => {
       fireCompleteRegistration();
       alert("บันทึกการลงทะเบียนเสร็จสิ้น ✅");
@@ -956,7 +962,7 @@
 
     function unlockSite(){
       ageGate.style.display = "none";
-      firePageViewOnce(); // ✅ ยิง PageView หลังผ่าน gate
+      firePageViewOnce(); // ✅ ยิง PageView หลังผ่าน gate (ครั้งเดียว/ต่อแท็บ)
       if (typeof window.fbq === "function") {
         window.fbq("trackCustom", "AgeVerified20Plus");
       }
